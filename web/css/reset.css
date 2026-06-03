@@ -1,0 +1,49 @@
+/* Resets Everything */
+*,
+*::before,
+*::after {
+    all: unset;
+}
+
+/* Hide Elements That Are Supposed To Be Hidden */
+head,
+meta,
+title,
+link,
+style,
+script {
+    display: none;
+}
+
+/* Enable Focus Outline For Accessibility. */
+:focus-visible {
+    outline-color: var(--focus-outline-color, rgb(0, 119, 204));
+    outline-width: var(--focus-outline-width, 1px);
+    outline-style: auto;
+    outline-offset: var(--focus-outline-offset, 0);
+}
+
+/* Set Some Sensible Defaults */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    display: flex;
+    border-width: 0;
+    border-style: solid;
+    overflow: hidden;
+    font: inherit;
+}
+
+/*
+    Make Root Element Size Of Viewport
+    Note: inline-size: 100% is already default in Flex Layout!
+*/
+html {
+    block-size: 100%;
+}
+
+/* Make Entry Point Element Full Size */
+body {
+    flex: 1;
+}
