@@ -41,11 +41,11 @@ jobs:
       - name: Generate Files For The Web
         run: |
           mkdir ./web/wasm &&
-          wasm-bindgen
-          --no-typescript
-          --target web
-          --out-dir ./web/wasm
-          --out-name "BorkedCraft"
+          wasm-bindgen \
+          --no-typescript \
+          --target web \
+          --out-dir ./web/wasm \
+          --out-name "BorkedCraft" \
           ./target/wasm32-unknown-unknown/wasm-release/BorkedCraft.wasm
 
       - name: Install wasm-opt
