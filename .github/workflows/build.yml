@@ -13,7 +13,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         profile: [release, dev]
 
-    name: Build And Test on ${{ matrix.os }}
+    name: Build And Test on ${{ matrix.os }} with profile ${{ matrix.profile }}
 
     runs-on: ${{ matrix.os }}
 
