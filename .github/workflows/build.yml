@@ -38,5 +38,25 @@ jobs:
       - name: Build
         run: cargo build --profile ${{ matrix.profile }}
 
+      - name: Copy Assets Folder Release
+        if: ${{ matrix.profile == 'release' }}
+        run: |
+            cp -r ./assets ./target/release/assets
+
+      - name: Copy Assets Folder Debug
+        if: ${{ matrix.profile == 'dev' }}
+        run: |
+            cp -r ./assets ./target/debug/assets
+
       - name: Run Tests
         run: cargo test --profile ${{ matrix.profile }}
+
+      - name: Remove Assets Folder Release
+        if: ${{ matrix.profile == 'release' }}
+        run: |
+            rm -rf ./assets ./target/release/assets
+
+      - name: Remove Assets Folder Debug
+        if: ${{ matrix.profile == 'dev' }}
+        run: |
+            rm -rf ./assets ./target/debug/assets
