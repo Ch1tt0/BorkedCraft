@@ -26,6 +26,10 @@ jobs:
         with:
           path: target
           key: ${{ matrix.os }}-${{ matrix.profile }}-cache
+    
+      - name: Update And Upgrade
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: sudo apt-get update && sudo apt-get upgrade
 
       - name: Install Dependencies
         if: ${{ matrix.os  == 'ubuntu-latest' }}
