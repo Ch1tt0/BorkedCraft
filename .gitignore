@@ -1,3 +1,2 @@
 /target
-web/wasm/BorkedCraft.js
-web/wasm/BorkedCraft_bg.wasm
+web/wasm/*

@@ -48,6 +48,16 @@ jobs:
           --out-name "BorkedCraft" \
           ./target/wasm32-unknown-unknown/wasm-release/BorkedCraft.wasm
 
+      - name: Copy Assets Folder
+        # run: CC=clang CXX=clang++ cargo install wasm-opt <- Uncomment incase build fails
+        run: |
+            cp -r ./assets ./web/wasm/assets
+
+      - name: Copy LICENSE File
+        # run: CC=clang CXX=clang++ cargo install wasm-opt <- Uncomment incase build fails
+        run: |
+            cp ./LICENSE ./web/LICENSE
+
       - name: Install wasm-opt
         # run: CC=clang CXX=clang++ cargo install wasm-opt <- Uncomment incase build fails
         run: cargo install wasm-opt
