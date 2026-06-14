@@ -6,18 +6,14 @@ use crate::dev_tools::DevToolsPlugin;
 mod ui;
 use crate::ui::UIPlugin;
 
+mod scenes;
+use crate::scenes::ScenesPlugin;
+
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(DevToolsPlugin)
         .add_plugins(UIPlugin)
-        .add_systems(Startup, setup)
+        .add_plugins(ScenesPlugin::default())
         .run();
-}
-
-#[derive(Component)]
-struct Player;
-
-fn setup(mut commands: Commands) {
-    commands.spawn(Camera2d::default());
 }
