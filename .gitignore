@@ -1,2 +1,5 @@
 /target
-web/wasm/*
+web/BorkedCraft_bg.wasm
+web/BorkedCraft.js
+web/LICENSE
+web/assets
