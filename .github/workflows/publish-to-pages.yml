@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Restore Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.cargo/registry/index/
@@ -56,29 +56,28 @@ jobs:
 
       - name: Generate Files For The Web
         run: |
-          mkdir -p ./web/wasm
           wasm-bindgen \
             --no-typescript \
             --target web \
-            --out-dir ./web/wasm \
+            --out-dir ./web \
             --out-name "BorkedCraft" \
             ./target/wasm32-unknown-unknown/wasm-release/BorkedCraft.wasm
 
       - name: Copy Static Assets
         run: |
-          cp -r ./assets ./web/wasm/assets
+          cp -r ./assets ./web/assets
           cp ./LICENSE ./web/LICENSE
 
       - name: Optimize Final Wasm File For Size
-        run: wasm-opt -Oz -o ./web/wasm/BorkedCraft_bg.wasm ./web/wasm/BorkedCraft_bg.wasm
+        run: wasm-opt -Oz -o ./web/BorkedCraft_bg.wasm ./web/BorkedCraft_bg.wasm
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload Web Directory
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: "./web/"
+          path: ./web
 
       - name: Deploy to GitHub Pages
         id: deployment
