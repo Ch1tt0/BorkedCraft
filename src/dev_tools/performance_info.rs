@@ -15,7 +15,6 @@ impl Plugin for PerformanceInfoPlugin {
 #[derive(Component)]
 struct FPSText;
 
-// TODO: Implement loading the font into a global resource when starting the game.
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn((

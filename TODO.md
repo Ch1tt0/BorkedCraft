@@ -1,0 +1,1 @@
+- [ ] [Implement loading the font into a global resource when starting the game.](./src/dev_tools/performance_info.rs)
