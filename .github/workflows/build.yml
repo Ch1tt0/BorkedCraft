@@ -3,7 +3,6 @@ name: Build And Test
 on:
   push:
     branches: [master]
-
   workflow_dispatch:
 
 jobs:
@@ -14,49 +13,43 @@ jobs:
         profile: [release, dev]
 
     name: Build And Test on ${{ matrix.os }} with profile ${{ matrix.profile }}
-
     runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      TARGET_DIR: ${{ matrix.profile == 'dev' && 'debug' || matrix.profile }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Restore Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: target
           key: ${{ matrix.os }}-${{ matrix.profile }}-cache
-    
-      - name: Update And Upgrade
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: sudo apt-get update && sudo apt-get upgrade
 
-      - name: Install Dependencies
-        if: ${{ matrix.os  == 'ubuntu-latest' }}
-        run: sudo apt-get install clang mold pkg-config libx11-dev libasound2-dev libudev-dev libxkbcommon-x11-0 libwayland-dev libxkbcommon-dev
+      - name: Update Package List (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update
+
+      - name: Install Dependencies (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install -y clang mold pkg-config libx11-dev \
+            libasound2-dev libudev-dev libxkbcommon-x11-0 libwayland-dev libxkbcommon-dev
 
       - name: Build
         run: cargo build --profile ${{ matrix.profile }}
 
-      - name: Copy Assets Folder Release
-        if: ${{ matrix.profile == 'release' }}
-        run: |
-            cp -r ./assets ./target/release/assets
-
-      - name: Copy Assets Folder Debug
-        if: ${{ matrix.profile == 'dev' }}
-        run: |
-            cp -r ./assets ./target/debug/assets
+      - name: Copy Assets Folder
+        run: cp -r ./assets ./target/${{ env.TARGET_DIR }}/assets
 
       - name: Run Tests
         run: cargo test --profile ${{ matrix.profile }}
 
-      - name: Remove Assets Folder Release
-        if: ${{ matrix.profile == 'release' }}
-        run: |
-            rm -rf ./assets ./target/release/assets
-
-      - name: Remove Assets Folder Debug
-        if: ${{ matrix.profile == 'dev' }}
-        run: |
-            rm -rf ./assets ./target/debug/assets
+      - name: Remove Assets Folder from Target
+        run: rm -rf ./target/${{ env.TARGET_DIR }}/assets

@@ -3,7 +3,6 @@ name: Publish To Pages
 on:
   push:
     branches: [master]
-
   workflow_dispatch:
 
 permissions:
@@ -22,63 +21,65 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Restore Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
-          path: target
-          key: wasm-cache
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-wasm-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-wasm-
 
-      - name: Update And Upgrade
-        run: sudo apt-get update && sudo apt-get upgrade
+      - name: Update Package List
+        run: sudo apt-get update
 
       - name: Install Dependencies
-        run: sudo apt-get install clang pkg-config libx11-dev libasound2-dev libudev-dev libxkbcommon-x11-0 libwayland-dev libxkbcommon-dev
+        run: |
+          sudo apt-get install -y clang pkg-config libx11-dev libasound2-dev \
+            libudev-dev libxkbcommon-x11-0 libwayland-dev libxkbcommon-dev
 
-      - name: Install ToolChain
+      - name: Install Toolchain
         run: rustup target install wasm32-unknown-unknown
+
+      - name: Install CLI Tools (wasm-bindgen & wasm-opt)
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall -y wasm-bindgen-cli@0.2.121 wasm-opt
 
       - name: Build
         run: cargo build --profile wasm-release --target wasm32-unknown-unknown
 
-      - name: Install wasm-bindgen
-        # Bevy doesn't suppport the latest version yet!
-        run: cargo install wasm-bindgen-cli --version 0.2.121
-
       - name: Generate Files For The Web
         run: |
-          mkdir ./web/wasm &&
+          mkdir -p ./web/wasm
           wasm-bindgen \
-          --no-typescript \
-          --target web \
-          --out-dir ./web/wasm \
-          --out-name "BorkedCraft" \
-          ./target/wasm32-unknown-unknown/wasm-release/BorkedCraft.wasm
+            --no-typescript \
+            --target web \
+            --out-dir ./web/wasm \
+            --out-name "BorkedCraft" \
+            ./target/wasm32-unknown-unknown/wasm-release/BorkedCraft.wasm
 
-      - name: Copy Assets Folder
+      - name: Copy Static Assets
         run: |
-            cp -r ./assets ./web/wasm/assets
-
-      - name: Copy LICENSE File
-        run: |
-            cp ./LICENSE ./web/LICENSE
-
-      - name: Install wasm-opt
-        # run: CC=clang CXX=clang++ cargo install wasm-opt <- Uncomment incase build fails
-        run: cargo install wasm-opt
+          cp -r ./assets ./web/wasm/assets
+          cp ./LICENSE ./web/LICENSE
 
       - name: Optimize Final Wasm File For Size
         run: wasm-opt -Oz -o ./web/wasm/BorkedCraft_bg.wasm ./web/wasm/BorkedCraft_bg.wasm
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: Upload Web Directory
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "./web/"
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
