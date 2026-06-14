@@ -1,24 +1,24 @@
 /* Set Encoding to UTF-8, Import ./css/reset.css */
 @charset 'UTF-8';
-@import url(./css/reset.css);
+@import url(./reset.css);
 
 /* Fonts */
 @font-face {
     font-family: DepartureMonoNerdFontPropo;
     src:
-        url(./font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff2),
-        url(./font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff),
-        url(./font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.otf);
+        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff2),
+        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff),
+        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.otf);
     font-weight: 400;
 }
 @font-face {
     font-family: PixelifySans-Bold;
-    src: url(./font/PixelifySans/PixelifySans-Bold.ttf);
+    src: url(../font/PixelifySans/PixelifySans-Bold.ttf);
     font-weight: bold;
 }
 @font-face {
     font-family: PixelifySans-Regular;
-    src: url(./font/PixelifySans/PixelifySans-Regular.ttf);
+    src: url(../font/PixelifySans/PixelifySans-Regular.ttf);
     font-weight: normal;
 }
 /* Global Variables */
