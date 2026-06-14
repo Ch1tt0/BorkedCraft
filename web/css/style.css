@@ -4,118 +4,118 @@
 
 /* Fonts */
 @font-face {
-    font-family: DepartureMonoNerdFontPropo;
-    src:
-        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff2),
-        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff),
-        url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.otf);
-    font-weight: 400;
+  font-family: DepartureMonoNerdFontPropo;
+  src:
+    url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff2),
+    url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.woff),
+    url(../font/DepartureMonoNerdFontPropo/DepartureMonoNerdFontPropo-Regular.otf);
+  font-weight: 400;
 }
 @font-face {
-    font-family: PixelifySans-Bold;
-    src: url(../font/PixelifySans/PixelifySans-Bold.ttf);
-    font-weight: bold;
+  font-family: PixelifySans-Bold;
+  src: url(../font/PixelifySans/PixelifySans-Bold.ttf);
+  font-weight: bold;
 }
 @font-face {
-    font-family: PixelifySans-Regular;
-    src: url(../font/PixelifySans/PixelifySans-Regular.ttf);
-    font-weight: normal;
+  font-family: PixelifySans-Regular;
+  src: url(../font/PixelifySans/PixelifySans-Regular.ttf);
+  font-weight: normal;
 }
 /* Global Variables */
 :root {
-    /* Theme */
-    --theme-crust: #181926;
-    --theme-mantle: #1e2030;
-    --theme-base: #24273a;
-    --theme-surface-0: #363a4f;
-    --theme-surface-1: #494d64;
-    --theme-surface-2: #5b6078;
-    --theme-overlay-0: #6e738d;
-    --theme-overlay-1: #8087a2;
-    --theme-overlay-2: #939ab7;
-    --theme-subtext-0: #a5adcb;
-    --theme-subtext-1: #b8c0e0;
-    --theme-text: #cad3f5;
-    --theme-lavender: #b7bdf8;
-    --theme-blue: #8aadf4;
-    --theme-sapphire: #7dc4e4;
-    --theme-sky: #91d7e3;
-    --theme-teal: #8bd5ca;
-    --theme-green: #a6da95;
-    --theme-yellow: #eed49f;
-    --theme-peach: #f5a97f;
-    --theme-maroon: #ee99a0;
-    --theme-red: #ed8796;
-    --theme-mauve: #c6a0f6;
-    --theme-pink: #f5bde6;
-    --theme-flamingo: #f0c6c6;
-    --theme-rosewater: #f4dbd6;
+  /* Theme */
+  --theme-crust: #181926;
+  --theme-mantle: #1e2030;
+  --theme-base: #24273a;
+  --theme-surface-0: #363a4f;
+  --theme-surface-1: #494d64;
+  --theme-surface-2: #5b6078;
+  --theme-overlay-0: #6e738d;
+  --theme-overlay-1: #8087a2;
+  --theme-overlay-2: #939ab7;
+  --theme-subtext-0: #a5adcb;
+  --theme-subtext-1: #b8c0e0;
+  --theme-text: #cad3f5;
+  --theme-lavender: #b7bdf8;
+  --theme-blue: #8aadf4;
+  --theme-sapphire: #7dc4e4;
+  --theme-sky: #91d7e3;
+  --theme-teal: #8bd5ca;
+  --theme-green: #a6da95;
+  --theme-yellow: #eed49f;
+  --theme-peach: #f5a97f;
+  --theme-maroon: #ee99a0;
+  --theme-red: #ed8796;
+  --theme-mauve: #c6a0f6;
+  --theme-pink: #f5bde6;
+  --theme-flamingo: #f0c6c6;
+  --theme-rosewater: #f4dbd6;
 
-    /* Browser Facing */
-    --font-size: 16px;
-    --line-height: calc(var(--font-size) * 1.4);
-    --font-family: PixelifySans-Regular;
+  /* Browser Facing */
+  --font-size: 16px;
+  --line-height: calc(var(--font-size) * 1.4);
+  --font-family: PixelifySans-Regular;
 
-    --color: var(--theme-text);
-    --background-color: var(--theme-base);
+  --color: var(--theme-text);
+  --background-color: var(--theme-base);
 
-    --border-color: var(--theme-overlay-1);
-    --border-thickness: 2px;
-    --border-radius: calc(var(--font-size) * 0.4);
+  --border-color: var(--theme-overlay-1);
+  --border-thickness: 2px;
+  --border-radius: calc(var(--font-size) * 0.4);
 
-    --padding: 5px;
-    --spacing: 6px;
+  --padding: 5px;
+  --spacing: 6px;
 
-    --link-color: var(--theme-blue);
-    --hovered-link-color: var(--theme-sapphire);
-    --visited-link-color: var(--theme-teal);
+  --link-color: var(--theme-blue);
+  --hovered-link-color: var(--theme-sapphire);
+  --visited-link-color: var(--theme-teal);
 
-    --h1-multiplier: 2.25;
-    --h2-multiplier: 2;
-    --h3-multiplier: 1.75;
-    --h4-multiplier: 1.5;
-    --h5-multiplier: 1.25;
-    --h6-multiplier: 1;
-    --h1-text-color: var(--theme-text);
-    --h2-h6-text-color: var(--theme-subtext-0);
+  --h1-multiplier: 2.25;
+  --h2-multiplier: 2;
+  --h3-multiplier: 1.75;
+  --h4-multiplier: 1.5;
+  --h5-multiplier: 1.25;
+  --h6-multiplier: 1;
+  --h1-text-color: var(--theme-text);
+  --h2-h6-text-color: var(--theme-subtext-0);
 }
 
 html {
-    color: var(--color);
-    background-color: var(--background-color);
+  color: var(--color);
+  background-color: var(--background-color);
 
-    font-family: var(--font-family);
-    font-size: var(--font-size);
-    line-height: var(--line-height);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
 }
 
 body {
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 main {
-    display: block;
-    width: 90%;
-    height: fit-content;
-    margin: 0 auto;
+  display: block;
+  width: 90%;
+  height: fit-content;
+  margin: 0 auto;
 }
 
 hr {
-    display: block;
-    height: var(--border-thickness);
-    width: 95%;
-    border: 0;
-    border-top: var(--border-thickness) solid var(--color);
-    margin: 0.5rem auto;
-    padding: 0;
+  display: block;
+  height: var(--border-thickness);
+  width: 95%;
+  border: 0;
+  border-top: var(--border-thickness) solid var(--color);
+  margin: 0.5rem auto;
+  padding: 0;
 }
 
 footer {
-    display: block;
-    margin: 0 auto;
-    width: fit-content;
-    height: fit-content;
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+  height: fit-content;
 }
 
 h1,
@@ -124,37 +124,37 @@ h3,
 h4,
 h5,
 h6 {
-    display: block;
+  display: block;
 }
 
 /* Set Font Sizes For Headers */
 h1 {
-    font-size: calc(var(--font-size) * var(--h1-multiplier));
+  font-size: calc(var(--font-size) * var(--h1-multiplier));
 }
 
 h2 {
-    font-size: calc(var(--font-size) * var(--h2-multiplier));
+  font-size: calc(var(--font-size) * var(--h2-multiplier));
 }
 
 h3 {
-    font-size: calc(var(--font-size) * var(--h3-multiplier));
+  font-size: calc(var(--font-size) * var(--h3-multiplier));
 }
 
 h4 {
-    font-size: calc(var(--font-size) * var(--h4-multiplier));
+  font-size: calc(var(--font-size) * var(--h4-multiplier));
 }
 
 h5 {
-    font-size: calc(var(--font-size) * var(--h5-multiplier));
+  font-size: calc(var(--font-size) * var(--h5-multiplier));
 }
 
 h6 {
-    font-size: calc(var(--font-size) * var(--h6-multiplier));
+  font-size: calc(var(--font-size) * var(--h6-multiplier));
 }
 
 /* Set Text Color For Headers */
 h1 {
-    color: var(--h1-text-color);
+  color: var(--h1-text-color);
 }
 
 h2,
@@ -162,86 +162,86 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--h2-h6-text-color);
+  color: var(--h2-h6-text-color);
 }
 
 /* Set Defaults For The Paragraph Element */
 p {
-    display: block;
-    width: fit-content;
-    height: fit-content;
-    margin: 0 0 0.5em 1em;
+  display: block;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 0 0.5em 1em;
 }
 
 img,
 a,
 span {
-    display: inline;
+  display: inline;
 }
 
 /* Link Colors */
 a {
-    color: var(--link-color);
+  color: var(--link-color);
 }
 
 a:hover {
-    color: var(--hovered-link-color);
-    cursor: pointer;
+  color: var(--hovered-link-color);
+  cursor: pointer;
 }
 
 a:visited {
-    color: var(--visited-link-color);
+  color: var(--visited-link-color);
 }
 
 a:hover:visited {
-    color: var(--hovered-link-color);
-    cursor: pointer;
+  color: var(--hovered-link-color);
+  cursor: pointer;
 }
 
 /* Scrollbar Styling */
 /* Modern browsers — Chrome 121+, Edge 121+, Firefox, Safari 18.2+ */
 * {
-    scrollbar-width: 10px;
-    scrollbar-color: #f5a97f #5b6078;
+  scrollbar-width: 10px;
+  scrollbar-color: #f5a97f #5b6078;
 }
 
 /* Legacy WebKit — older Chrome/Edge/Safari, radius, borders & shadows */
 *::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
 *::-webkit-scrollbar-track {
-    background-color: #5b6078;
-    border-radius: 8px;
-    padding: 1px;
-    border: 3px solid #24273a;
+  background-color: #5b6078;
+  border-radius: 8px;
+  padding: 1px;
+  border: 3px solid #24273a;
 }
 
 *::-webkit-scrollbar-track:hover {
-    background-color: #5b6078;
+  background-color: #5b6078;
 }
 
 *::-webkit-scrollbar-track:active {
-    background-color: #5b6078;
+  background-color: #5b6078;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #f5a97f;
-    border-radius: 8px;
-    min-height: 30px;
+  background-color: #f5a97f;
+  border-radius: 8px;
+  min-height: 30px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background-color: #ee99a0;
+  background-color: #ee99a0;
 }
 
 *::-webkit-scrollbar-thumb:active {
-    background-color: #ed8796;
+  background-color: #ed8796;
 }
 
 *::-webkit-scrollbar-button {
-    display: none;
-    width: 0;
-    height: 0;
+  display: none;
+  width: 0;
+  height: 0;
 }

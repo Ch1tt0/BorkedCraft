@@ -23,7 +23,38 @@
     <link rel="icon" href="./icon.png" type="image/png" />
   </head>
   <body>
-    <!-- Potential fix for AudioContext warning, not tested yet. -->
+    <span style="text-align: center; font-size: xx-large">Loading...</span>
+    <!-- Loading logic -->
+    <script>
+      // Select the node that will be observed for mutations
+      const targetNode = document.body;
+      const loadingText = document.getElementsByTagName("span")[0];
+
+      // Options for the observer (which mutations to observe)
+      const config = { childList: true };
+
+      // Callback function to execute when mutations are observed
+      const callback = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeName === "CANVAS") {
+              loadingText.remove();
+            }
+          });
+        }
+      };
+
+      // Create an observer instance linked to the callback function
+      const observer = new MutationObserver(callback);
+
+      // Start observing the target node for configured mutations
+      observer.observe(targetNode, config);
+
+      // Later, you can stop observing
+      //   observer.disconnect();
+    </script>
+
+    <!-- Fix for AudioContext. -->
     <script>
       (function () {
         // An array of all contexts to resume on the page
@@ -82,7 +113,7 @@
         });
       })();
     </script>
-
+    <!-- Game -->
     <script type="module">
       import init from "./BorkedCraft.js";
 
