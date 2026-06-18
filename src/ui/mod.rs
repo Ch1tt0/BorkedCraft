@@ -13,6 +13,7 @@ pub struct UIPlugin;
 impl Plugin for UIPlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<UIState>(); // Initialize UIState
+        app.add_plugins(console::ConsolePlugin);
         app.add_systems(Update, setup);
     }
 }
