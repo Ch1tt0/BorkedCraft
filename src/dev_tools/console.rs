@@ -17,13 +17,13 @@ pub struct ConsolePlugin;
 impl Plugin for ConsolePlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<ConsoleState>();
-        app.add_systems(Startup, spawn_box);
+        app.add_systems(Startup, spawn_console);
         app.add_systems(Update, toggle_console);
         app.add_systems(
             Update,
             animate_console
                 .run_if(in_state(ConsoleState::Opening).or(in_state(ConsoleState::Closing))),
-        );
+        ); // Only run animate_console when the console is opening or closing.
     }
 }
 
@@ -38,10 +38,10 @@ impl ConsoleState {
     }
 }
 
-fn spawn_box(mut commands: Commands) {
+fn spawn_console(mut commands: Commands) {
     let container = Node {
         width: Val::Percent(100.0),
-        height: Val::Percent(60.0),
+        height: Val::Percent(0.0),
         justify_content: JustifyContent::Start,
         align_content: AlignContent::Start,
         ..default()
@@ -73,27 +73,48 @@ fn toggle_console(
             ConsoleState::Open => {
                 next_state.set(current_state.next());
             }
-            ConsoleState::Closing => {}
-            ConsoleState::Opening => {}
+            _ => {}
         }
     }
 }
 
 fn animate_console(
     time: Res<Time>,
-    mut query: Query<&Node, With<Console>>,
+    mut query: Query<&mut Node, With<Console>>,
     mut next_state: ResMut<NextState<ConsoleState>>,
     current_state: Res<State<ConsoleState>>,
 ) {
-    for mut node in &query {
+    let state = current_state.get();
 
+    // Speed in percentage points per second.
+    // (e.g., 200% per second takes exactly 0.3 seconds to reach 60%)
+    let animation_speed = 200.0;
+
+    for mut node in &mut query {
+        // Extract the current height percentage.
+        if let Val::Percent(mut current_height) = node.height {
+            match state {
+                ConsoleState::Opening => {
+                    current_height += animation_speed * time.delta_secs();
+
+                    if current_height >= 60.0 {
+                        current_height = 60.0;
+                        next_state.set(current_state.next()); // Change state when done!
+                    }
+                }
+                ConsoleState::Closing => {
+                    current_height -= animation_speed * time.delta_secs();
+
+                    if current_height <= 0.0 {
+                        current_height = 0.0;
+                        next_state.set(current_state.next()); // Change state when done!
+                    }
+                }
+                _ => {}
+            }
+
+            // Apply the updated height back to the UI style.
+            node.height = Val::Percent(current_height);
+        }
     }
-    let target_height = match current_state.get() {
-        ConsoleState::Closed => Val::Percent(0.0),
-        ConsoleState::Open => Val::Percent(60.0),
-        ConsoleState::Closing => Val::Percent(0.0),
-        ConsoleState::Opening => Val::Percent(60.0),
-    };
-
-    // let current_height = node.
 }
