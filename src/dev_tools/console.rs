@@ -22,7 +22,7 @@ impl Plugin for ConsolePlugin {
         app.add_systems(
             Update,
             animate_console
-                .run_if(in_state(ConsoleState::Opening).or(in_state(ConsoleState::Closing))),
+                .run_if(in_state(ConsoleState::Opening).or_else(in_state(ConsoleState::Closing))),
         ); // Only run animate_console when the console is opening or closing.
     }
 }

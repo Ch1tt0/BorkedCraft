@@ -49,8 +49,8 @@ fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     let text = (
         Text::default(),
         TextFont {
-            font: asset_server.load("fonts/FiraMonoNerdFont.otf"),
-            font_size: 16.0,
+            font: FontSource::Handle(asset_server.load("fonts/FiraMonoNerdFont.otf")),
+            font_size: FontSize::Rem(1.0),
             ..default()
         },
         FPSText,
