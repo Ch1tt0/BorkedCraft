@@ -32,29 +32,48 @@ impl InfoState {
     }
 }
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 struct InfoContainer;
 
-#[derive(Component)]
+impl Default for InfoContainer {
+    fn default() -> Self {
+        InfoContainer
+    }
+}
+
+#[derive(Component, Clone)]
 struct FPSText;
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let container = Node {
-        justify_content: JustifyContent::Start,
-        align_content: AlignContent::Start,
-        display: Display::None,
-        ..default()
-    };
+impl Default for FPSText {
+    fn default() -> Self {
+        FPSText
+    }
+}
 
-    let text = (
-        Text::default(),
+fn setup_scene(asset_server: Res<AssetServer>) -> impl Scene {
+
+    let loaded_font = FontSource::Handle(asset_server.load("fonts/FiraMonoNerdFont.otf"));
+
+    bsn! {
+        Node {
+            justify_content: JustifyContent::Start,
+            align_content: AlignContent::Start,
+            display: Display::None,
+        }
+        InfoContainer
+        Children[(
+        Text::default()
         TextFont {
-            font: FontSource::Handle(asset_server.load("fonts/FiraMonoNerdFont.otf")),
+            font: loaded_font,
             font_size: FontSize::Rem(1.0),
-            ..default()
-        },
-        FPSText,
-    );
+        }
+        FPSText
+        )]
+    };
+}
+
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+    let text = ();
     commands.spawn((container, children![(text)], InfoContainer));
 }
 

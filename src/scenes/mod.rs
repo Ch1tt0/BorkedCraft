@@ -24,7 +24,7 @@ impl Plugin for ScenesPlugin {
     fn build(&self, app: &mut App) {
         match self.scene {
             Scene::Dev => {
-                app.add_systems(Startup, dev::setup);
+                app.add_systems(Startup, dev::scene.spawn());
             }
         }
     }

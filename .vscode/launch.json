@@ -12,7 +12,7 @@
       "args": []
     },
     {
-      "name": "Debug unit tests",
+      "name": "Debug Unit Tests",
       "type": "lldb",
       "request": "launch",
       "preLaunchTask": "update_assets",
