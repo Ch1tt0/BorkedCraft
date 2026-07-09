@@ -17,7 +17,7 @@ pub struct InfoPlugin;
 impl Plugin for InfoPlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<InfoState>();
-        app.add_systems(Startup, setup_ui.spawn());
+        app.add_systems(Startup, setup_info.spawn());
         app.add_systems(Update, change_visibility);
         app.add_systems(Update, update_info);
     }
@@ -41,7 +41,7 @@ impl Default for FPSText {
     }
 }
 
-fn setup_ui() -> impl Scene {
+fn setup_info() -> impl Scene {
     bsn! {
         Node {
             justify_content: JustifyContent::Start,

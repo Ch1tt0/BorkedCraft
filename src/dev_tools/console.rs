@@ -9,7 +9,7 @@ pub enum ConsoleState {
     Opening,
 }
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 struct Console;
 
 pub struct ConsolePlugin;
@@ -17,7 +17,7 @@ pub struct ConsolePlugin;
 impl Plugin for ConsolePlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<ConsoleState>();
-        app.add_systems(Startup, spawn_console);
+        app.add_systems(Startup, setup_console.spawn());
         app.add_systems(Update, toggle_console);
         app.add_systems(
             Update,
@@ -38,26 +38,30 @@ impl ConsoleState {
     }
 }
 
-fn spawn_console(mut commands: Commands) {
-    let container = Node {
-        width: Val::Percent(100.0),
-        height: Val::Percent(0.0),
-        justify_content: JustifyContent::Start,
-        align_content: AlignContent::Start,
-        ..default()
-    };
+impl Default for Console {
+    fn default() -> Self {
+        Console
+    }
+}
 
-    let square = (
-        BackgroundColor(Color::srgb(0.65, 0.65, 0.65)),
+fn setup_console() -> impl Scene {
+    bsn! {
         Node {
             width: Val::Percent(100.0),
-            height: Val::Percent(100.0),
-            border: UiRect::all(Val::Px(2.)),
-            ..default()
-        },
-    );
-
-    commands.spawn((container, children![(square)], Console));
+            height: Val:: Percent(0.0),
+            justify_content: JustifyContent::Start,
+            align_content: AlignContent::Start,
+        }
+        Children[(
+            Node {
+                width: Val::Percent(100.0),
+                height: Val::Percent(100.0),
+                border: UiRect::all(Val::Px(2.)),
+            }
+            BackgroundColor(Color::srgb(0.65, 0.65, 0.65))
+        )]
+        Console
+    }
 }
 
 fn toggle_console(
