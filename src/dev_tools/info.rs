@@ -1,6 +1,6 @@
 use bevy::{
     diagnostic::{DiagnosticsStore, FrameTimeDiagnosticsPlugin},
-    prelude::*,
+    prelude::*, text::FontSourceTemplate,
 };
 
 use crate::dev_tools::console::ConsoleState;
@@ -17,7 +17,7 @@ pub struct InfoPlugin;
 impl Plugin for InfoPlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<InfoState>();
-        app.add_systems(Startup, setup);
+        app.add_systems(Startup, setup_ui.spawn());
         app.add_systems(Update, change_visibility);
         app.add_systems(Update, update_info);
     }
@@ -50,10 +50,7 @@ impl Default for FPSText {
     }
 }
 
-fn setup_scene(asset_server: Res<AssetServer>) -> impl Scene {
-
-    let loaded_font = FontSource::Handle(asset_server.load("fonts/FiraMonoNerdFont.otf"));
-
+fn setup_ui() -> impl Scene {
     bsn! {
         Node {
             justify_content: JustifyContent::Start,
@@ -64,17 +61,12 @@ fn setup_scene(asset_server: Res<AssetServer>) -> impl Scene {
         Children[(
         Text::default()
         TextFont {
-            font: loaded_font,
+            font: FontSourceTemplate::Handle("fonts/FiraMonoNerdFont.otf"),
             font_size: FontSize::Rem(1.0),
         }
         FPSText
         )]
-    };
-}
-
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let text = ();
-    commands.spawn((container, children![(text)], InfoContainer));
+    }
 }
 
 fn change_visibility(
