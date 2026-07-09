@@ -7,17 +7,9 @@ pub enum Scene {
     #[default]
     Dev,
 }
-
+#[derive(Default)]
 pub struct ScenesPlugin {
     pub scene: Scene,
-}
-
-impl Default for ScenesPlugin {
-    fn default() -> Self {
-        Self {
-            scene: Scene::default(),
-        }
-    }
 }
 
 impl Plugin for ScenesPlugin {
