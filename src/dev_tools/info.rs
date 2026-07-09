@@ -23,15 +23,6 @@ impl Plugin for InfoPlugin {
     }
 }
 
-impl InfoState {
-    fn next(&self) -> InfoState {
-        match self {
-            InfoState::Hidden => InfoState::Visible,
-            InfoState::Visible => InfoState::Hidden,
-        }
-    }
-}
-
 #[derive(Component, Clone)]
 struct InfoContainer;
 
@@ -72,22 +63,17 @@ fn setup_ui() -> impl Scene {
 fn change_visibility(
     mut next_state: ResMut<NextState<InfoState>>,
     current_info_state: Res<State<InfoState>>,
-    current_console_state: Res<State<ConsoleState>>,
     input: Res<ButtonInput<KeyCode>>,
 ) {
     if input.just_pressed(KeyCode::F3) {
         match current_info_state.get() {
             InfoState::Hidden => {
-                next_state.set(current_info_state.next());
+                next_state.set(InfoState::Visible);
             }
             InfoState::Visible => {
-                next_state.set(current_info_state.next());
+                next_state.set(InfoState::Hidden);
             }
         }
-    }
-
-    if *current_console_state.get() != ConsoleState::Closed {
-        next_state.set(InfoState::Hidden); // TODO: Fix this hack to hide info when console is open. Maybe use a run_if instead?
     }
 }
 
@@ -96,8 +82,9 @@ fn update_info(
     mut fps_text_query: Query<&mut Text, With<FPSText>>,
     mut container_query: Query<&mut Node, With<InfoContainer>>,
     current_info_state: Res<State<InfoState>>,
+    current_console_state: Res<State<ConsoleState>>,
 ) {
-    if *current_info_state.get() == InfoState::Visible {
+    if *current_console_state.get() == ConsoleState::Closed && *current_info_state.get() == InfoState::Visible {
         // Update the FPS text with the current FPS value.
         for mut fps_text in &mut fps_text_query {
             if let Some(fps) = diagnostics.get(&FrameTimeDiagnosticsPlugin::FPS)
