@@ -1,28 +1,29 @@
 use bevy::prelude::*;
 
-pub struct CameraPlugin;
-
 #[derive(Component, Clone)]
-struct PlayerCamera;
-
-impl Plugin for CameraPlugin {
-    fn build (&self, app: &mut App) {
-        app.add_systems(Startup, setup_camera.spawn());
-    }
+struct PlayerCamera {
+    pub yaw: f32,
+    pub pitch: f32,
 }
 
 impl Default for PlayerCamera {
     fn default() -> Self {
-        PlayerCamera
+        PlayerCamera {
+            yaw: 0.0,
+            pitch: 0.0,
+        }
     }
 }
 
-
-fn setup_camera() -> impl Scene {
+fn setup() -> impl Scene {
     bsn![(
         #PlayerCamera
-        PlayerCamera
+        Name("PlayerCamera")
         Camera3d
-        template_value(Transform::from_xyz(-2.5, 4.5, 9.0).looking_at(Vec3::ZERO, Vec3::Y))
+        PlayerCamera {
+            yaw: 0.0,
+            pitch: 0.0,
+        }
+        Transform::from_xyz(0.0, 1.0 / 2.0 + 0.2, 0.0)
     )]
 }

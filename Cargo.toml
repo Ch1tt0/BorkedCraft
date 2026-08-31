@@ -8,11 +8,8 @@ avian3d = "0.7.0"
 bevy = "0.19.1"
 
 [lints.clippy]
-# UM, ACTUALLY
 pedantic = { level = "deny", priority = -1 }
-# DEVELOPING LINTS
 nursery = { level = "deny", priority = -1 }
-# DENY PANICS
 unwrap_used = "deny"
 expect_used = "deny"
 indexing_slicing = "deny"
